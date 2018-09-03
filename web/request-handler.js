@@ -10,10 +10,23 @@ exports.handleRequest = function (req, res) {
       // if (err) {
       //   throw err;
       // }
+      
       res.writeHeader(200, { 'Content-Type': 'text/html' });
-      res.write(html);
+      // res.write(html);
       res.end(html, 'utf-8');
     });
+  } else {
+    // console.log('this is the DIRRR', req.url);
+    fs.readFile(archive.paths.archivedSites + req.url, (err, html) => {
+      if (err) {
+        res.writeHeader(404, { 'Content-Type': 'text/html' });
+        res.end();
+      }
+
+      res.writeHeader(200, { 'Content-Type': 'text/html' });
+      res.end(html, 'utf-8');
+    });
+    
   }
   // res.end(archive.paths.list);
 };
