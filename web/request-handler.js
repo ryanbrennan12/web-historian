@@ -12,9 +12,15 @@ exports.handleRequest = function (req, res) {
       buffer += chunk;
    
     }).on('end', () => {
-      // fs.appendFile(__dirname + )
-      console.log('this is the site', __dirname + archive.paths.archivedSites);
+      
       // console.log('this is data', buffer.slice(4));
+      var url = buffer.slice(4);
+      // console.log('thi is example', url);
+      // console.log('this is the path', archive.paths.list);
+      fs.appendFileSync(archive.paths.list, url + '\n');
+      res.writeHeader(302, { 'Content-Type': 'text/html' });
+      res.end();
+      
     });
     
   }
