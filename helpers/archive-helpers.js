@@ -45,6 +45,7 @@ exports.isUrlInList = function(url, callback) {
 };
 
 exports.addUrlToList = function(url, callback) {
+  fs.writeFile(archive.paths.list, url, 'utf-8', callback);
 };
 
 exports.isUrlArchived = function(url, callback) {
