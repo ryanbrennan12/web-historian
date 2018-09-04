@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+var archive = require('../helpers/archive-helpers');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -26,6 +27,8 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  console.log('this is the path', archive.paths.list);
+
 };
 
 exports.isUrlInList = function(url, callback) {

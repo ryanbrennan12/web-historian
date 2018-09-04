@@ -14,10 +14,10 @@ exports.handleRequest = function (req, res) {
     }).on('end', () => {
       
       // console.log('this is data', buffer.slice(4));
-      var url = buffer.slice(4);
+      let exampleUrl = buffer.slice(4);
       // console.log('thi is example', url);
       // console.log('this is the path', archive.paths.list);
-      fs.appendFileSync(archive.paths.list, url + '\n');
+      fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
       res.writeHeader(302, { 'Content-Type': 'text/html' });
       res.end();
       
