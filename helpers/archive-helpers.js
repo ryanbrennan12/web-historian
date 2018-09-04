@@ -27,16 +27,17 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-  let readStream = fs.createReadStream(archive.paths.list, 'utf8');
+  fs.readFile(archive.paths.list, 'utf-8', (err, data) => {
+    console.log('this is the data', data.split('\n'));
+    callback(data.split('\n'));
 
-  readStream.on('data', (chunk) => {
-    var data = chunk.split('\n');
-    callback(data);
   });
 
 };
 
 exports.isUrlInList = function(url, callback) {
+  console.log('this guy?', this.readListOfUrls(data));
+
 };
 
 exports.addUrlToList = function(url, callback) {
