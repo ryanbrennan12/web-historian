@@ -27,7 +27,12 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-  console.log('this is the path', archive.paths.list);
+  let readStream = fs.createReadStream(archive.paths.list, 'utf8');
+
+  readStream.on('data', (chunk) => {
+    var data = chunk.split('\n');
+    callback(data);
+  });
 
 };
 
