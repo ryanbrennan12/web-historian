@@ -28,7 +28,8 @@ exports.initialize = function(pathsObj) {
 
 exports.readListOfUrls = function(callback) {
   fs.readFile(archive.paths.list, 'utf-8', (err, data) => {
-    console.log('this is the data', data.split('\n'));
+    // console.log('this is the data', data.split('\n'));
+    
     callback(data.split('\n'));
 
   });
@@ -36,7 +37,10 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
-  console.log('this guy?', this.readListOfUrls(data));
+  //arr provided in tes
+  this.readListOfUrls((arr) => {
+    callback(arr.includes(url));
+  });
 
 };
 
