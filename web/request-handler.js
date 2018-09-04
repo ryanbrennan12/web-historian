@@ -4,6 +4,20 @@ var fs = require('fs');
 // require more modules/folders here!
 
 exports.handleRequest = function (req, res) {
+
+  if (req.method === 'POST') {
+    var buffer = '';
+    req.on('data', (chunk) => {
+      // var readStream = fs.createReadStream(__dirname + chunk, 'utf-8');
+      buffer += chunk;
+   
+    }).on('end', () => {
+      // fs.appendFile(__dirname + )
+      console.log('this is the site', __dirname + archive.paths.archivedSites);
+      // console.log('this is data', buffer.slice(4));
+    });
+    
+  }
   if (req.url === '/' && req.method === 'GET') {
     fs.readFile(__dirname + '/public/index.html', (err, html) => {
       // console.log(html, 'this is the chunk');
