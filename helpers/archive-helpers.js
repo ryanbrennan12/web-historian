@@ -27,8 +27,9 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  
   fs.readFile(archive.paths.list, 'utf-8', (err, data) => {
-    // console.log('this is the data', data.split('\n'));
+ 
     
     callback(data.split('\n'));
 
@@ -37,8 +38,9 @@ exports.readListOfUrls = function(callback) {
 };
 
 exports.isUrlInList = function(url, callback) {
-  //arr provided in tes
+
   this.readListOfUrls((arr) => {
+    // console.log('list: ', arr);
     callback(arr.includes(url));
   });
 
@@ -47,8 +49,20 @@ exports.isUrlInList = function(url, callback) {
 exports.addUrlToList = function(url, callback) {
   fs.writeFile(archive.paths.list, url, 'utf-8', callback);
 };
+/////////
+
 
 exports.isUrlArchived = function(url, callback) {
+  // console.log('this is the path: ', archive.paths.archivedSites);
+  // console.log('this URL: ', url);
+  fs.readFile(archive.paths.archivedSites + '/' + url, (err) => {
+    if (err) {
+      callback(false);
+    } else {
+      callback(true);
+    }
+  });
+
 };
 
 exports.downloadUrls = function(urls) {

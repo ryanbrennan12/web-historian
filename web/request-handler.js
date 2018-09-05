@@ -14,7 +14,9 @@ exports.handleRequest = function (req, res) {
     }).on('end', () => {
       
       // console.log('this is data', buffer.slice(4));
+      console.log('submitted', buffer);
       let exampleUrl = buffer.slice(4);
+      
       // console.log('thi is example', url);
       // console.log('this is the path', archive.paths.list);
       fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
@@ -26,7 +28,7 @@ exports.handleRequest = function (req, res) {
   }
   if (req.url === '/' && req.method === 'GET') {
     fs.readFile(__dirname + '/public/index.html', (err, html) => {
-      // console.log(html, 'this is the chunk');
+      console.log(html, 'this is the chunk');
       // if (err) {
       //   throw err;
       // }
@@ -38,6 +40,7 @@ exports.handleRequest = function (req, res) {
   } else {
     // console.log('this is the DIRRR', req.url);
     fs.readFile(archive.paths.archivedSites + req.url, (err, html) => {
+      console.log('this is the thing', req.url);
       if (err) {
         res.writeHeader(404, { 'Content-Type': 'text/html' });
         res.end();
