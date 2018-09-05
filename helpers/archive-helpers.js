@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 var archive = require('../helpers/archive-helpers');
+var request = require('request');
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -66,4 +67,19 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
+
+
+  urls.forEach((url) => {
+    request('http://' + url, (err, res, body) => {
+      if (err) {
+        console.log('this is: ', err);
+      } else {
+        fs.writeFileSync(archive.paths.archivedSites + '/' + url, body);
+      }
+      
+    });
+  });
+
+  
+  
 };
