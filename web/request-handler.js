@@ -13,12 +13,31 @@ exports.handleRequest = function (req, res) {
    
     }).on('end', () => {
       
-      // console.log('this is data', buffer.slice(4));
-      console.log('submitted', buffer);
-      let exampleUrl = buffer.slice(4);
       
-      // console.log('thi is example', url);
-      // console.log('this is the path', archive.paths.list);
+    
+      let exampleUrl = buffer.slice(4);
+
+      archive.isUrlArchived(exampleUrl, (isArchived) => {
+        console.log('this is the path', archive.paths.siteAssets + '/' + 'loading.html');
+        if (isArchived) {
+      
+          //get html body from archived file via fs.readSomething
+          console.log('this is the thing', archive.paths.archivedSites + '/' + exampleUrl);
+        } else {
+          console.log('hit else statement');
+          console.log(archive.paths.siteAssets + '/' + 'loading.html');
+          fs.readFile(archive.paths.loadingPage, (err, data) => {
+            if (err) {
+              throw error;
+            } else {
+              res.writeHeader(200, {'Content-Type': 'text/html'});
+              res.end(body, 'utf-8');
+            }
+          });
+        }
+      });
+      
+  
       fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
       res.writeHeader(302, { 'Content-Type': 'text/html' });
       res.end();
