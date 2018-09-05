@@ -12,13 +12,15 @@ exports.handleRequest = function (req, res) {
       buffer += chunk;
    
     }).on('end', () => {
-      
-      
-    
       let exampleUrl = buffer.slice(4);
+      
+      fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
+      // res.writeHeader(302, { 'Content-Type': 'text/html' });
+      // res.end();
+    
 
       archive.isUrlArchived(exampleUrl, (isArchived) => {
-        console.log('this is the path', archive.paths.siteAssets + '/' + 'loading.html');
+        
         if (isArchived) {
       
           //get html body from archived file via fs.readSomething
@@ -39,9 +41,9 @@ exports.handleRequest = function (req, res) {
       });
       
   
-      fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
-      res.writeHeader(302, { 'Content-Type': 'text/html' });
-      res.end();
+      // fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
+      // res.writeHeader(302, { 'Content-Type': 'text/html' });
+      // res.end();
       
     });
     
