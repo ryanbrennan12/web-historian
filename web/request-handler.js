@@ -5,7 +5,7 @@ var fs = require('fs');
 
 exports.handleRequest = function (req, res) {
 
-  if (req.method === 'POST' && req.url === '/') {
+  if (req.method === 'POST') {
     var buffer = '';
     req.on('data', (chunk) => {
       // var readStream = fs.createReadStream(__dirname + chunk, 'utf-8');
@@ -20,19 +20,17 @@ exports.handleRequest = function (req, res) {
     
 
       archive.isUrlArchived(exampleUrl, (isArchived) => {
-        
+        console.log('TRUTHY?', isArchived);
         if (isArchived) {
-      
-          //get html body from archived file via fs.readSomething
+          fs.readFile(archive.paths.archivedSites + '/' + exampleUrl, 'utf-8', (err, html) => {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(html);
+          });
+          
           
         } else {
-          console.log('hit else statement');
-          console.log(archive.paths.siteAssets + '/' + 'loading.html');
-          
+          archive.downloadUrls([exampleUrl]);
           fs.readFile(archive.paths.siteAssets + '/' + 'loading.html', 'utf-8', (err, html) => {
-            // console.log('this is the html', html);
-           
-            console.log('RESSSS', res);
             res.writeHead(302, {'Content-Type': 'text/html'});
             res.end(html);
       
