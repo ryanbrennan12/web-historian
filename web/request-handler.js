@@ -13,7 +13,7 @@ exports.handleRequest = function (req, res) {
     }).on('end', () => {
       let exampleUrl = buffer.slice(4);
       
-      fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
+      // fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
 
       archive.isUrlArchived(exampleUrl, (isArchived) => {
         console.log('TRUTHY?', isArchived);
@@ -25,7 +25,8 @@ exports.handleRequest = function (req, res) {
           
           
         } else {
-          archive.downloadUrls([exampleUrl]);
+          // archive.downloadUrls([exampleUrl]);
+          fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
           fs.readFile(archive.paths.siteAssets + '/' + 'loading.html', 'utf-8', (err, html) => {
             res.writeHead(302, {'Content-Type': 'text/html'});
             res.end(html);
