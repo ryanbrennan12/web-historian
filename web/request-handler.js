@@ -8,16 +8,12 @@ exports.handleRequest = function (req, res) {
   if (req.method === 'POST') {
     var buffer = '';
     req.on('data', (chunk) => {
-      // var readStream = fs.createReadStream(__dirname + chunk, 'utf-8');
       buffer += chunk;
    
     }).on('end', () => {
       let exampleUrl = buffer.slice(4);
       
       fs.appendFileSync(archive.paths.list, exampleUrl + '\n');
-      // res.writeHeader(302, { 'Content-Type': 'text/html' });
-      // res.end();
-    
 
       archive.isUrlArchived(exampleUrl, (isArchived) => {
         console.log('TRUTHY?', isArchived);
