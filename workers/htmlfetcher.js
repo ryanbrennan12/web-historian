@@ -2,4 +2,8 @@
 // that are waiting.
 var archive = require('../helpers/archive-helpers');
 
-archive.readListOfUrls(archive.downloadUrls);
+archive.readListOfUrls((urls) => {
+  console.log('these are the earls: ', urls);
+
+  archive.downloadUrls(urls);
+});
