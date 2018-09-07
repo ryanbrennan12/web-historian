@@ -31,7 +31,7 @@ exports.readListOfUrls = function(callback) {
   
   fs.readFile(archive.paths.list, 'utf-8', (err, data) => {
  
-    
+   
     callback(data.split('\n'));
 
   });
